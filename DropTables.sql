@@ -1,0 +1,1 @@
+DROP TABLE Phone, animallivesinbox, Box, BoxMonitor, Changes, SmartUnit, Stall, StallMonitor, ChrNo, Farm, Owner, Animal, State, Postcode
