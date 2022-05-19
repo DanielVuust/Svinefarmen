@@ -9,10 +9,10 @@ CREATE TABLE Owner(
 	Owner_LName				Varchar(64)						NOT NULL,
 	Owner_No				Integer							NOT NULL	CHECK(Owner_No >= 0),
 	Owner_StreetName		Varchar(64)						NOT NULL,
-	FKPostcode_Owner_Postcode Numeric(4,0)					NOT NULL REFERENCES Postcode
+	FKPostcode_Owner_Postcode Numeric(4,0)					NOT NULL REFERENCES Postcode    ON DELETE CASCADE ON UPDATE CASCADE
 );
 CREATE TABLE Phone(
-	FKOwner_CVR 			Numeric(8,0)					REFERENCES Owner,
+	FKOwner_CVR 			Numeric(8,0)					REFERENCES Owner    ON DELETE CASCADE ON UPDATE CASCADE,
 	Phone_Phone				Numeric(8,0)					NOT NULL	CHECK(LENGTH(Phone_Phone::Text) = 8)
 );
 CREATE TABLE Farm(
@@ -20,23 +20,23 @@ CREATE TABLE Farm(
 	Farm_Name				Varchar(64),
 	Farm_No					Integer							NOT NULL 	CHECK(Farm_No>=0),
 	Farm_StreetName			Varchar(64)						NOT NULL,
-	FKPostcode				Numeric(4,0)					NOT NULL REFERENCES Postcode,
-	FKOwner_CVR				Numeric(8,0)					NOT NULL REFERENCES Owner
+	FKPostcode				Numeric(4,0)					NOT NULL REFERENCES Postcode    ON DELETE CASCADE ON UPDATE CASCADE,
+	FKOwner_CVR				Numeric(8,0)					NOT NULL REFERENCES Owner       ON DELETE CASCADE ON UPDATE CASCADE
 );
 CREATE TABLE ChrNo(
-	FKFarm_ChrNo_PNumber	Numeric(8,0)					NOT NULL REFERENCES Farm,
-	ChrNo_ChrNo				Varchar(6)						NOT NULL 	CHECK(LENGTH(ChrNo_ChrNo)= 5 OR LENGTH(ChrNo_ChrNo)= 6 )
+	FKFarm_ChrNo_PNumber	Numeric(8,0)					NOT NULL REFERENCES Farm        ON DELETE CASCADE ON UPDATE CASCADE,
+	ChrNo_ChrNo				Varchar(6)						NOT NULL 	CHECK(LENGTH(ChrNo_ChrNo)= 4 OR LENGTH(ChrNo_ChrNo)= 5 OR LENGTH(ChrNo_ChrNo)= 6  )
 );
 CREATE TABLE Stall(
 	PKStall_No 				SERIAL	PRIMARY KEY,
-	FKFarm_PNumber			Numeric(8,0)					NOT NULL REFERENCES Farm
+	FKFarm_PNumber			Numeric(8,0)					NOT NULL REFERENCES Farm ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE Box(
 	PKBox_No				SERIAL PRIMARY KEY 				NOT NULL 	CHECK(PKBox_No >= 0),
 	Box_Outdoor				Boolean							NOT NULL,
 	Box_Type				Varchar(64)						NOT NULL CHECK(Box_Type in ('Big', 'Medium','Small')),
-	FKStall					Integer							NOT NULL REFERENCES Stall
+	FKStall					Integer							NOT NULL REFERENCES Stall   ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE SmartUnit(
