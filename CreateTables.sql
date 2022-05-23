@@ -85,7 +85,7 @@ CREATE TABLE Animal(
 );
 
 CREATE TABLE AnimalLivesInBox(
-	AnimalLivesInBox_MoveInTime timestamp ,
+	AnimalLivesInBox_MoveInTime timestamp SET DEFAULT Now(),
 	AnimalLivesInBox_MoveOutTime timestamp ,
 
 	FKAnimal_EarMark Integer NOT NULL REFERENCES Animal(PKAnimal_EarMarkId),
